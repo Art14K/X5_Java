@@ -1,15 +1,15 @@
 import java.util.*;
 public class SportCar extends Car {
-    public String maxspeed;
+    private String maxspeed;
 
-    public SportCar(String engman, String engpow, String clas, String marka, String massa, String maxspeed) {
-        super(engman, engpow, clas, marka, massa);
+    public SportCar(Engine engine, String clas, String marka, String massa, String maxspeed) {
+        super(engine, clas, marka, massa);
         this.maxspeed = maxspeed;
     }
 
     public void printinfo() {
-        System.out.println("Производитель двигателя: " + engman);
-        System.out.println("Мощность двигателя: " + engpow);
+        System.out.println("Производитель двигателя: " + engine.getInfo(engine.manufacture));
+        System.out.println("Мощность двигателя: " + engine.getInfo(engine.power));
         System.out.println("Класс автомобиля: " + clas);
         System.out.println("Марка автомобиля: " + marka);
         System.out.println("Масса автомобиля: " + massa);

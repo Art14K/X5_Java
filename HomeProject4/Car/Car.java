@@ -1,21 +1,17 @@
 import java.util.*;
-public abstract class Car {
-   protected String engman;
-   protected String engpow;
+public class Car {
+   protected Engine engine;
    protected String clas;
    protected String marka;
    protected String massa;
 
-    public Car(String engman, String engpow, String clas, String marka, String massa) {
-        this.engman = engman;
-        this.engpow = engpow;
+    public Car(Engine engine, String clas, String marka, String massa) {
+        this.engine = engine;
         this.clas = clas;
         this.marka = marka;
         this.massa = massa;
     }
 
-    public abstract void start();
-    public abstract void stop();
 
     public void turnRight() {
         System.out.println("Поворот на право");
@@ -24,10 +20,5 @@ public abstract class Car {
     public void turnLeft() {
         System.out.println("Поворот на лево");
     }
-
-    public abstract void printinfo();
-
-
-
 
 }
