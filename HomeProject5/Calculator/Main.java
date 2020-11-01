@@ -1,5 +1,5 @@
 import java.util.*;
-public class HomeProject5Calc {
+public class Main {
     public static void main (String[] args) {
         int start = 1;
         String logs = "Ошибка";
@@ -32,7 +32,8 @@ public class HomeProject5Calc {
                 filelogger.log(logs);
             }
             operation = input.indexOf("/");
-            if (operation > 0) {logs = calculator.division(input);
+            if (operation > 0) {
+                logs = calculator.division(input);
                 consolelogger.log(logs);
                 filelogger.log(logs);
             }
