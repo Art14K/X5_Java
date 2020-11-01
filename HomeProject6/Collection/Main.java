@@ -1,6 +1,6 @@
 import java.util.*;
 
-public class CollectionMain {
+public class Main {
     public static void main (String[] args) {
         String bmw = "bmw";
         String audi = "audi";
