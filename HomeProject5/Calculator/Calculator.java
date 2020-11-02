@@ -14,6 +14,7 @@ public class Calculator {
 
     public String filter(String input) {
         this.input = input.replaceAll("[ABCDEFGHIJKLMNPQRSTUVWXYZ abcdefghijklmnopqrstuvwxyz{}()&?@!|'\'АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЬЭЮЯабвгдеёжзийклмнопрстуфхцчшщъьэюя]", "");
+        this.input = input.replaceAll(",", ".");
         return this.input;
     }
 

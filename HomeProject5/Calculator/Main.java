@@ -24,9 +24,6 @@ public class Main {
             catch (ArithmeticException exc) {
                 System.out.println("Недопустимое выражение! Ошибка!");
                 exc.printStackTrace();
-            } catch (NumberFormatException exc) {
-                System.out.println("Недопустимый формат ввода числового значения! Ошибка!");
-                exc.printStackTrace();
             } catch (ArrayIndexOutOfBoundsException exc) {
                 System.out.println("Введена только одна цифра! Ошибка!");
                 exc.printStackTrace();
@@ -41,9 +38,6 @@ public class Main {
                     filelogger.log(logs);
                 } catch (ArithmeticException exc) {
                     System.out.println("Недопустимое выражение! Ошибка!");
-                    exc.printStackTrace();
-                } catch (NumberFormatException exc) {
-                    System.out.println("Недопустимый формат ввода числового значения! Ошибка!");
                     exc.printStackTrace();
                 } catch (ArrayIndexOutOfBoundsException exc) {
                     System.out.println("Введена только одна цифра! Ошибка!");
@@ -61,9 +55,6 @@ public class Main {
                 } catch (ArithmeticException exc) {
                     System.out.println("Недопустимое выражение! Ошибка!");
                     exc.printStackTrace();
-                } catch (NumberFormatException exc) {
-                    System.out.println("Недопустимый формат ввода числового значения! Ошибка!");
-                    exc.printStackTrace();
                 } catch (ArrayIndexOutOfBoundsException exc) {
                     System.out.println("Введена только одна цифра! Ошибка!");
                     exc.printStackTrace();
@@ -79,9 +70,6 @@ public class Main {
                     filelogger.log(logs);
                 } catch (ArithmeticException exc) {
                     System.out.println("Недопустимое выражение! Ошибка!");
-                    exc.printStackTrace();
-                } catch (NumberFormatException exc) {
-                    System.out.println("Недопустимый формат ввода числового значения! Ошибка!");
                     exc.printStackTrace();
                 } catch (ArrayIndexOutOfBoundsException exc) {
                     System.out.println("Введена только одна цифра! Ошибка!");
