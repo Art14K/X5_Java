@@ -17,28 +17,61 @@ public class Main {
             }
             input  = calculator.filter(input);
             int operation = input.indexOf("+");
-            if (operation > 0) {logs = calculator.plus(input);
+            if (operation > 0) { try {
+                logs = calculator.plus(input);
             consolelogger.log(logs);
-            filelogger.log(logs);
+            filelogger.log(logs); }
+            catch (ArithmeticException exc) {
+                System.out.println("Недопустимое выражение! Ошибка!");
+            } catch (NumberFormatException exc) {
+                System.out.println("Недопустимый формат ввода числового значения! Ошибка!");
+                exc.printStackTrace();
             }
-            operation = input.indexOf("-");
-            if (operation > 0) {logs = calculator.minus(input);
-                consolelogger.log(logs);
-                filelogger.log(logs);
-            }
-            operation = input.indexOf("*");
-            if (operation > 0) {logs = calculator.multiplication(input);
-                consolelogger.log(logs);
-                filelogger.log(logs);
-            }
-            operation = input.indexOf("/");
-            if (operation > 0) {
-                logs = calculator.division(input);
-                consolelogger.log(logs);
-                filelogger.log(logs);
             }
 
-           
+            operation = input.indexOf("-");
+            if (operation > 0) {
+                try {
+                    logs = calculator.minus(input);
+                    consolelogger.log(logs);
+                    filelogger.log(logs);
+                } catch (ArithmeticException exc) {
+                    System.out.println("Недопустимое выражение! Ошибка!");
+                } catch (NumberFormatException exc) {
+                    System.out.println("Недопустимый формат ввода числового значения! Ошибка!");
+                    exc.printStackTrace();
+                }
+            }
+
+
+            operation = input.indexOf("*");
+            if (operation > 0) {
+                try {
+                    logs = calculator.multiplication(input);
+                    consolelogger.log(logs);
+                    filelogger.log(logs);
+                } catch (ArithmeticException exc) {
+                    System.out.println("Недопустимое выражение! Ошибка!");
+                } catch (NumberFormatException exc) {
+                    System.out.println("Недопустимый формат ввода числового значения! Ошибка!");
+                    exc.printStackTrace();
+                }
+            }
+
+
+            operation = input.indexOf("/");
+            if (operation > 0) {
+                try {
+                    logs = calculator.division(input);
+                    consolelogger.log(logs);
+                    filelogger.log(logs);
+                } catch (ArithmeticException exc) {
+                    System.out.println("Недопустимое выражение! Ошибка!");
+                } catch (NumberFormatException exc) {
+                    System.out.println("Недопустимый формат ввода числового значения! Ошибка!");
+                    exc.printStackTrace();
+                }
+            }
 
         }
 

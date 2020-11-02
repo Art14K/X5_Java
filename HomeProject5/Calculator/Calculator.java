@@ -18,64 +18,47 @@ public class Calculator {
     }
 
     public String plus(String input) {
-        subStr = this.input.split("\\+");
-        num1 = Double.parseDouble(subStr[0]);
-        num2 = Double.parseDouble(subStr[1]);
-        try {result = num1 + num2;}
-        catch (ArithmeticException ex) {
-            System.out.println("Недопустимое выражение! Ошибка!");
-        }
-        System.out.println("Ответ: " + result);
-        message = Double.toString(result);
-        dblogger.log(message);
-        return message;
+           subStr = this.input.split("\\+");
+            num1 = Double.parseDouble(subStr[0]);
+            num2 = Double.parseDouble(subStr[1]);
+            result = num1 + num2;
+            System.out.println("Ответ: " + result);
+            message = Double.toString(result);
+            dblogger.log(message);
+            return message;
     }
 
     public String minus(String input) {
         subStr = this.input.split("-");
         num1 = Double.parseDouble(subStr[0]);
         num2 = Double.parseDouble(subStr[1]);
-        try {result = num1 - num2;}
-        catch (ArithmeticException ex) {
-            System.out.println("Недопустимое выражение! Ошибка!");
-        }
+        result = num1 - num2;
         System.out.println("Ответ: " + result);
         message = Double.toString(result);
         dblogger.log(message);
         return message;
-
-
     }
 
     public String multiplication(String input) {
         subStr = this.input.split("\\*");
         num1 = Double.parseDouble(subStr[0]);
         num2 = Double.parseDouble(subStr[1]);
-        try {result = num1 * num2;}
-        catch (ArithmeticException ex) {
-            System.out.println("Недопустимое выражение! Ошибка!");
-        }
+        result = num1 * num2;
         System.out.println("Ответ: " + result);
         message = Double.toString(result);
         dblogger.log(message);
         return message;
-
     }
 
     public String division(String input) {
         subStr = this.input.split("/");
         num1 = Double.parseDouble(subStr[0]);
         num2 = Double.parseDouble(subStr[1]);
-        try {result = num1 / num2;}
-        catch (ArithmeticException ex) {
-            System.out.println("Недопустимое выражение! Ошибка!");
-        }
+        result = num1 / num2;
         System.out.println("Ответ: " + result);
         message = Double.toString(result);
         dblogger.log(message);
         return message;
-
-
     }
 }
 
