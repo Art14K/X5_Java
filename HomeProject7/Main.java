@@ -7,8 +7,14 @@ public class Main {
         Scanner scan = new Scanner(System.in);
         String input;
         String[] Input = new String[5];
+
+
+
+        // Тест классов
+        CreateDb createDb = new CreateDb("base.txt");
+        createDb.createDb();
         while (start > 0) {
-            try {
+           try {
                 System.out.print("Введите команду(для выхода из программы введите exit: ");
                 input = scan.nextLine();
                 Input = input.split(" ");
