@@ -13,4 +13,15 @@ public class Account {
     }
 
 
+    public int getId () {
+        return id;
+    }
+
+    public String getHolder() {
+        return holder;
+    }
+
+    public double getAmount() {
+        return amount;
+    }
 }
