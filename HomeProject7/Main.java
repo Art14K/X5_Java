@@ -3,11 +3,11 @@ import java.io.*;
 
 public class Main {
     public static void main(String[] args) {
-        int start = 1;
         Scanner scan = new Scanner(System.in);
         String input;
-        String[] Input = new String[5];
-        int lenght_db;
+        String str;
+        String[] Input = new String[5]; // Массив для преобразования строки
+        int lenght_db; // Содержит длину массива
 
 
 
@@ -16,32 +16,26 @@ public class Main {
         createDb.createDb();
         lenght_db = createDb.lenghtDb();
         String[] base = new String[lenght_db];
-
-        // Создать коллекцию и в неё добавить массив
-
-
         base = createDb.readDb(lenght_db);
-        String str;
+
 
 
         List <Account> listBase = new ArrayList <Account>();
         for (int i = 0; i < lenght_db; i++) {
-            str = base[i];
-
-            String[] sub_str = str.split(":");
-            Account account = new Account(i, sub_str[0], Double.parseDouble(sub_str[1]));
-            listBase.add(account);
+            input = base[i]; // Преобразовываем элемент массива в строку
+            String[] sub_str = input.split(":"); // Разбиваем строку по разделителю
+            listBase.add(new Account(i, sub_str[0], Double.parseDouble(sub_str[1]))); // Добавляем элементы в коллекцию
         }
 
 
-        while (start > 0) {
+        while (Input[0] != "exit") {
            try {
                 System.out.print("Введите команду(для выхода из программы введите exit: ");
                 input = scan.nextLine();
                 Input = input.split(" ");
                 switch (Input[0]) {
                     case "exit":
-                        start = 0;
+                        Input[0] = "exit";
 
                    }
             } catch (ArrayIndexOutOfBoundsException exc) {
