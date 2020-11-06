@@ -2,9 +2,9 @@ import java.util.*;
 import java.io.*;
 
 public class Account {
-    public int id;
-    public String holder;
-    public double amount;
+    private int id;
+    private String holder;
+    private double amount;
 
     Account(int id, String holder, double ammount) {
         this.id = id;
@@ -23,5 +23,23 @@ public class Account {
 
     public double getAmount() {
         return amount;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setAmount(double amount) {
+        this.amount = amount;
+    }
+
+    public void setHolder(String holder) {
+        this.holder = holder;
+    }
+
+    public void printinfo() {
+        System.out.println("Уникальный id счёта: " + id);
+        System.out.println("Владелец счёта: " + holder);
+        System.out.println("Сумма на счёте:" + amount);
     }
 }

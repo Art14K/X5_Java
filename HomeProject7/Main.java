@@ -25,8 +25,9 @@ public class Main {
             String[] sub_str = input.split(":"); // Разбиваем строку по разделителю
             listBase.add(new Account(i, sub_str[0], Double.parseDouble(sub_str[1]))); // Добавляем элементы в коллекцию
         }
+        System.out.println(listBase);
 
-
+        UserOperation userOperation = new UserOperation(listBase, createDb); // Создаём класс для выполнения пользовательских операций
         while (Input[0] != "exit") {
            try {
                 System.out.print("Введите команду(для выхода из программы введите exit: ");
@@ -34,17 +35,26 @@ public class Main {
                 Input = input.split(" ");
                 switch (Input[0]) {
                     case "exit":
-                        Input[0] = "exit";
+                        Input[0] = "exit"; // при выходе из программы "кидает" исключение ArrayIndexOutOfBoundsException. Не смог разобраться почему
                     case "test":
-                        for (Account sh: listBase) {
-                            if (sh.getId() == Integer.parseInt(Input[1])) {
-                                System.out.println("Нашёл!");
-                            }
-                        }
+                        userOperation.balance(Integer.parseInt(Input[1]));
+                        break;
 
+                    case "balance":
+                        userOperation.balance(Integer.parseInt(Input[1]));
+                        break;
+
+                    case "tst":
+                        userOperation.balance(Integer.parseInt(Input[1]));
+                        break;
+
+                    default:
+                        break;
                    }
+
+
             } catch (ArrayIndexOutOfBoundsException exc) {
-                System.out.println("Ошибка ввода!");
+
             }
                  
         }

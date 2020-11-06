@@ -3,8 +3,7 @@ import java.io.*;
 
 public class CreateDb {
     private String way_file; // путь к файлу
-    private String[] db_creator = new String[11];
-    public int i = 0;
+    private int i = 0;
 
     CreateDb(String way_file) {
         this.way_file = way_file;
@@ -13,6 +12,7 @@ public class CreateDb {
     // метод проверяет ниличие файла и создаёт его в случае отсутствия
     public void createDb () {
         File base = new File(way_file);
+        String[] db_creator = new String[11];
         if (base.exists() == false) {
 
         System.out.println("Файл базы данных отсутствует!\nСоздаю файл....");
@@ -42,7 +42,6 @@ public class CreateDb {
     }
 
     // Метод возвращает размер массива для базы данных
-    // Разобраться с длинной массива
     public int lenghtDb() {
         try {
             File base = new File(way_file);
