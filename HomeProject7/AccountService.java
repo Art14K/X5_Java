@@ -1,6 +1,6 @@
 import java.util.*;
 
-public interface AccountService {
+public class AccountService extends Exeption {
 
     void withdraw(int accountId, int amount) throws
             NotEnoughMoneyException, UnknownAccountException;

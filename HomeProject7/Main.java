@@ -7,6 +7,7 @@ public class Main {
         String input;
         String[] Input = new String[5]; // Массив для преобразования строки
         int lenght_db; // Содержит длину массива
+        //UnknownAccountException unknownAccountException = new UnknownAccountException();
 
 
 
@@ -27,7 +28,7 @@ public class Main {
         }
         System.out.println(listBase);
 
-        UserOperation userOperation = new UserOperation(listBase, createDb); // Создаём класс для выполнения пользовательских операций
+        UserOperation userOperation = new UserOperation(listBase, createDb, lenght_db); // Создаём класс для выполнения пользовательских операций
         while (Input[0] != "exit") {
            try {
                 System.out.print("Введите команду(для выхода из программы введите exit: ");
@@ -37,15 +38,23 @@ public class Main {
                     case "exit":
                         Input[0] = "exit"; // при выходе из программы "кидает" исключение ArrayIndexOutOfBoundsException. Не смог разобраться почему
                     case "test":
-                        userOperation.balance(Integer.parseInt(Input[1]));
                         break;
 
                     case "balance":
-                        userOperation.balance(Integer.parseInt(Input[1]));
+                        try {userOperation.balance(Integer.parseInt(Input[1]));}
+                        catch (UnknownAccountException exc) {
+                            System.out.println("Такого аккаунта не существует!");
+                        }
                         break;
 
-                    case "tst":
-                        userOperation.balance(Integer.parseInt(Input[1]));
+                    case "withdraw":
+                        try {userOperation.withdraw(Integer.parseInt(Input[1]), Double.parseDouble(Input[2]));}
+                        catch (UnknownAccountException exc) {
+                            System.out.println("Такого аккаунта не существует!");
+                        }
+                        catch (NotEnoughMoneyException exc) {
+                            System.out.println("На указанном счёте не достаточно средств");
+                        }
                         break;
 
                     default:
