@@ -4,7 +4,7 @@ import java.io.*;
 public class NotEnoughMoneyException extends Exception {
 
     public String toString() {
-        String msg = "На указанном счёье не достаточно средств!";
+        String msg = "На указанном счете не достаточно средств!";
         return msg;
     }
 }

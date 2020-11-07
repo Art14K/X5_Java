@@ -25,7 +25,7 @@ public class Main {
             String[] sub_str = input.split(":"); // Разбиваем строку по разделителю
             listBase.add(new Account(i, sub_str[0], Double.parseDouble(sub_str[1]))); // Добавляем элементы в коллекцию
         }
-        System.out.println(listBase);
+
 
         UserOperation userOperation = new UserOperation(listBase, createDb, lenght_db); // Создаём класс для выполнения пользовательских операций
         while (Input[0] != "exit") {
@@ -49,6 +49,7 @@ public class Main {
 
                     case "withdraw":
                         try {
+                            Input[2] = Input[2].replaceAll(",", ".");
                             userOperation.withdraw(Integer.parseInt(Input[1]), Double.parseDouble(Input[2]));
                         } catch (UnknownAccountException exc) {
                             System.out.println("Такого аккаунта не существует!");
@@ -61,6 +62,7 @@ public class Main {
 
                     case "deposit":
                         try {
+                            Input[2] = Input[2].replaceAll(",", ".");
                             userOperation.deposit(Integer.parseInt(Input[1]), Double.parseDouble(Input[2]));
                         } catch (UnknownAccountException exc) {
                             System.out.println("Такого аккаунта не существует!");
@@ -69,6 +71,7 @@ public class Main {
 
                     case "transfer":
                         try {
+                            Input[3] = Input[3].replaceAll(",", ".");
                             userOperation.transfer(Integer.parseInt(Input[1]), Integer.parseInt(Input[2]), Double.parseDouble(Input[3]));
                         } catch (UnknownAccountException exc) {
                             System.out.println("На указанном счёте не достаточно средств");
@@ -77,15 +80,10 @@ public class Main {
                         }
 
                     default:
-
                         break;
                 }
-
-
             } catch (ArrayIndexOutOfBoundsException exc) {
-
             }
-
         }
         createDb.updateDb(listBase);
     }

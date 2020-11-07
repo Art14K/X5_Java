@@ -17,11 +17,8 @@ public class CreateDb {
         // метод проверяет ниличие файла и создаёт его в случае отсутствия
         public void createDb() {
             File base = new File(way_file);
-
             if (base.exists() == false) {
-
                 System.out.println("Файл базы данных отсутствует!\nСоздаю файл....");
-
                 try (FileWriter fileWriter = new FileWriter(way_file, true)) {
                     db_creator[0] = "Иван Петров:18000\n";
                     db_creator[1] = "Сергей Николаев:186000\n";
@@ -33,12 +30,10 @@ public class CreateDb {
                     db_creator[7] = "Михаил Дурманов:39000\n";
                     db_creator[8] = "Наталья Беляева:120900\n";
                     db_creator[9] = "Денис Алексеев:72100";
-
                     for (int i = 0; i < 10; i++) {
                         fileWriter.write(db_creator[i]);
                     }
                 } catch (IOException ex) {
-
                     System.out.println(ex.getMessage());
                 }
             }
@@ -53,17 +48,14 @@ public class CreateDb {
             File base = new File(way_file);
             FileReader fileReader = new FileReader(base);
             BufferedReader reader = new BufferedReader(fileReader);
-
             String file = reader.readLine();
             while (file != null) {
                 file = reader.readLine();
                 i++;
             }
         } catch (IOException exc) {
-
             System.out.println(exc.getMessage());
         }
-
         return i;
     }
 
@@ -72,19 +64,14 @@ public class CreateDb {
 
     public String[] readDb(int i) {
         String[] db_reader = new String[i];
-
         try {
             File base = new File(way_file);
             FileReader fileReader = new FileReader(base);
             BufferedReader reader = new BufferedReader(fileReader);
-
-
             for (int s = 0; s < i; s++) {
                 db_reader[s] = reader.readLine();
-
             }
         } catch (IOException exc) {
-
             System.out.println(exc.getMessage());
         }
         return db_reader;
@@ -92,22 +79,15 @@ public class CreateDb {
     }
 
 
-
+   // Метод служит для обновления файла базы данных при завершении работы программы
     public void updateDb(List<Account> collection) {
-
             try (FileWriter fileWriter = new FileWriter(way_file, false)) {
-
-
             for (Account acc : collection) {
                 input = (acc.getHolder() + ":" + acc.getAmount());
-
-                System.out.println(input);
                 fileWriter.write(input + "\n");
             }
         } catch (IOException exc) {
-
             System.out.println(exc.getMessage());
         }
-
     }
 }

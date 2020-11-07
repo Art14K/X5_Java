@@ -1,13 +1,13 @@
 import java.util.*;
 
-public class AccountService extends Exeption {
+public interface AccountService {
 
-    void withdraw(int accountId, int amount) throws
+    void withdraw(int accountId, double amount) throws
             NotEnoughMoneyException, UnknownAccountException;
     void balance(int accountId) throws UnknownAccountException;
-    void deposit(int accountId, int amount) throws
+    void deposit(int accountId, double amount) throws
             NotEnoughMoneyException, UnknownAccountException;
-    void transfer(int from, int to, int amount) throws
+    void transfer(int from, int to, double amount) throws
             NotEnoughMoneyException, UnknownAccountException;
 
 }

@@ -1,14 +1,15 @@
 import java.util.*;
 import java.io.*;
 
-public class UserOperation /*implements AccountService */ {
+public class UserOperation implements AccountService {
     private CreateDb createDb;
     private List<Account> collection;
     private int accountId;
     private double amount;
     private int from;
     private int to;
-    private int lenght_db;
+    private int lenght_db; // Хранит размер базы данных
+    double temp_amount; // Служит для временного хранения значения amount в методе transfer
     private UnknownAccountException unknownAccountException;
     private NotEnoughMoneyException notEnoughMoneyException;
 
@@ -23,11 +24,9 @@ public class UserOperation /*implements AccountService */ {
     public void balance(int accountId) throws UnknownAccountException {
         if (accountId > lenght_db)
             throw new UnknownAccountException();
-
         for (Account acc : collection) {
             if (acc.getId() == accountId) {
-                System.out.println("Нашёл!");
-                acc.printinfo();
+               acc.printinfo();
             }
         }
     }
@@ -35,7 +34,6 @@ public class UserOperation /*implements AccountService */ {
     public void withdraw(int accountId, double amount) throws UnknownAccountException, NotEnoughMoneyException {
         if (accountId > lenght_db)
             throw new UnknownAccountException();
-
         for (Account acc : collection) {
             if (acc.getId() == accountId) {
                 if (acc.getAmount() < amount) {
@@ -44,26 +42,22 @@ public class UserOperation /*implements AccountService */ {
                 amount = acc.getAmount() - amount;
                 acc.setAmount(amount);
             }
-
         }
-
     }
 
     public void deposit(int accountId, double amount) throws UnknownAccountException {
         if (accountId > lenght_db)
             throw new UnknownAccountException();
-
         for (Account acc : collection) {
             if (acc.getId() == accountId) {
                 amount = acc.getAmount() + amount;
                 acc.setAmount(amount);
             }
-
         }
-
     }
 
     public void transfer(int accountId, int to, double amount) throws UnknownAccountException, NotEnoughMoneyException {
+        temp_amount = amount;
         if (accountId > lenght_db)
             throw new UnknownAccountException();
 
@@ -75,20 +69,21 @@ public class UserOperation /*implements AccountService */ {
                 }
                 amount = acc.getAmount() - amount;
                 acc.setAmount(amount);
+
             }
+        }
+
 
             // Добавляем на другой
-            for (Account ac : collection) {
+        for (Account ac : collection) {
                 if (ac.getId() == to) {
-                    amount = ac.getAmount() + amount;
+                    amount = ac.getAmount() + temp_amount;
                     ac.setAmount(amount);
                 }
-
             }
-
         }
     }
-}
+
 
 
 
