@@ -2,45 +2,50 @@ import java.util.*;
 import java.io.*;
 
 public class CreateDb {
-    private String way_file; // путь к файлу
-    private int i = 0;
-    private String input; // Сообщения для записи в файл
-    private List<Account> collection;
 
-
-    CreateDb(String way_file) {
-        this.way_file = way_file;
-    }
-
-    // метод проверяет ниличие файла и создаёт его в случае отсутствия
-    public void createDb() {
-        File base = new File(way_file);
+        private String way_file; // путь к файлу
+        private int i = 0;
+        private String input; // Сообщения для записи в файл
+        private List<Account> collection;
         String[] db_creator = new String[11];
-        if (base.exists() == false) {
 
-            System.out.println("Файл базы данных отсутствует!\nСоздаю файл....");
 
-            try (FileWriter fileWriter = new FileWriter(way_file, true)) {
-                db_creator[0] = "Иван Петров:18000\n";
-                db_creator[1] = "Сергей Николаев:186000\n";
-                db_creator[2] = "Михаил Николаев:29300\n";
-                db_creator[3] = "Татьяна Николаева:52300\n";
-                db_creator[4] = "Ирина Никоненко:38150\n";
-                db_creator[5] = "Алексей Дмитриев:12900\n";
-                db_creator[6] = "Иван Соболев:62100\n";
-                db_creator[7] = "Михаил Дурманов:39000\n";
-                db_creator[8] = "Наталья Беляева:120900\n";
-                db_creator[9] = "Денис Алексеев:72100";
+        CreateDb(String way_file) {
+            this.way_file = way_file;
+        }
 
-                for (int i = 0; i < 10; i++) {
-                    fileWriter.write(db_creator[i]);
+        // метод проверяет ниличие файла и создаёт его в случае отсутствия
+        public void createDb() {
+            File base = new File(way_file);
+
+            if (base.exists() == false) {
+
+                System.out.println("Файл базы данных отсутствует!\nСоздаю файл....");
+
+                try (FileWriter fileWriter = new FileWriter(way_file, true)) {
+                    db_creator[0] = "Иван Петров:18000\n";
+                    db_creator[1] = "Сергей Николаев:186000\n";
+                    db_creator[2] = "Михаил Николаев:29300\n";
+                    db_creator[3] = "Татьяна Николаева:52300\n";
+                    db_creator[4] = "Ирина Никоненко:38150\n";
+                    db_creator[5] = "Алексей Дмитриев:12900\n";
+                    db_creator[6] = "Иван Соболев:62100\n";
+                    db_creator[7] = "Михаил Дурманов:39000\n";
+                    db_creator[8] = "Наталья Беляева:120900\n";
+                    db_creator[9] = "Денис Алексеев:72100";
+
+                    for (int i = 0; i < 10; i++) {
+                        fileWriter.write(db_creator[i]);
+                    }
+                } catch (IOException ex) {
+
+                    System.out.println(ex.getMessage());
                 }
-            } catch (IOException ex) {
-
-                System.out.println(ex.getMessage());
             }
         }
-    }
+
+
+
 
     // Метод возвращает размер массива для базы данных
     public int lenghtDb() {
@@ -48,6 +53,7 @@ public class CreateDb {
             File base = new File(way_file);
             FileReader fileReader = new FileReader(base);
             BufferedReader reader = new BufferedReader(fileReader);
+
             String file = reader.readLine();
             while (file != null) {
                 file = reader.readLine();
@@ -72,6 +78,7 @@ public class CreateDb {
             FileReader fileReader = new FileReader(base);
             BufferedReader reader = new BufferedReader(fileReader);
 
+
             for (int s = 0; s < i; s++) {
                 db_reader[s] = reader.readLine();
 
@@ -84,17 +91,18 @@ public class CreateDb {
 
     }
 
+
+
     public void updateDb(List<Account> collection) {
-        try {
-            File base = new File("base.txt");
-            FileReader fileReader = new FileReader(base);
-            BufferedReader reader = new BufferedReader(fileReader);
-            FileWriter fileWriter = new FileWriter("base.txt", true);
+
+            try (FileWriter fileWriter = new FileWriter(way_file, false)) {
 
 
             for (Account acc : collection) {
                 input = (acc.getHolder() + ":" + acc.getAmount());
-                fileWriter.write(input);
+
+                System.out.println(input);
+                fileWriter.write(input + "\n");
             }
         } catch (IOException exc) {
 

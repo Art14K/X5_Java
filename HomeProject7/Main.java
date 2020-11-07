@@ -7,7 +7,7 @@ public class Main {
         String input;
         String[] Input = new String[5]; // Массив для преобразования строки
         int lenght_db; // Содержит длину массива
-        //UnknownAccountException unknownAccountException = new UnknownAccountException();
+
 
 
 
@@ -19,8 +19,7 @@ public class Main {
         base = createDb.readDb(lenght_db);
 
 
-
-        List <Account> listBase = new ArrayList <Account>(); //Создаём коллекцию для хранения данных
+        List<Account> listBase = new ArrayList<Account>(); //Создаём коллекцию для хранения данных
         for (int i = 0; i < lenght_db; i++) {
             input = base[i]; // Преобразовываем элемент массива в строку
             String[] sub_str = input.split(":"); // Разбиваем строку по разделителю
@@ -30,7 +29,7 @@ public class Main {
 
         UserOperation userOperation = new UserOperation(listBase, createDb, lenght_db); // Создаём класс для выполнения пользовательских операций
         while (Input[0] != "exit") {
-           try {
+            try {
                 System.out.print("Введите команду(для выхода из программы введите exit: ");
                 input = scan.nextLine();
                 Input = input.split(" ");
@@ -41,31 +40,53 @@ public class Main {
                         break;
 
                     case "balance":
-                        try {userOperation.balance(Integer.parseInt(Input[1]));}
-                        catch (UnknownAccountException exc) {
+                        try {
+                            userOperation.balance(Integer.parseInt(Input[1]));
+                        } catch (UnknownAccountException exc) {
                             System.out.println("Такого аккаунта не существует!");
                         }
                         break;
 
                     case "withdraw":
-                        try {userOperation.withdraw(Integer.parseInt(Input[1]), Double.parseDouble(Input[2]));}
-                        catch (UnknownAccountException exc) {
+                        try {
+                            userOperation.withdraw(Integer.parseInt(Input[1]), Double.parseDouble(Input[2]));
+                        } catch (UnknownAccountException exc) {
                             System.out.println("Такого аккаунта не существует!");
-                        }
-                        catch (NotEnoughMoneyException exc) {
+                        } catch (NotEnoughMoneyException exc) {
                             System.out.println("На указанном счёте не достаточно средств");
                         }
+
                         break;
 
+
+                    case "deposit":
+                        try {
+                            userOperation.deposit(Integer.parseInt(Input[1]), Double.parseDouble(Input[2]));
+                        } catch (UnknownAccountException exc) {
+                            System.out.println("Такого аккаунта не существует!");
+                        }
+
+
+                    case "transfer":
+                        try {
+                            userOperation.transfer(Integer.parseInt(Input[1]), Integer.parseInt(Input[2]), Double.parseDouble(Input[3]));
+                        } catch (UnknownAccountException exc) {
+                            System.out.println("На указанном счёте не достаточно средств");
+                        } catch (NotEnoughMoneyException exc) {
+                            System.out.println("На указанном счёте не достаточно средств");
+                        }
+
                     default:
+
                         break;
-                   }
+                }
 
 
             } catch (ArrayIndexOutOfBoundsException exc) {
 
             }
-                 
+
         }
+        createDb.updateDb(listBase);
     }
 }

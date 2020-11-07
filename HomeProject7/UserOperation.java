@@ -46,7 +46,47 @@ public class UserOperation /*implements AccountService */ {
             }
 
         }
-        createDb.updateDb(collection);
+
+    }
+
+    public void deposit(int accountId, double amount) throws UnknownAccountException {
+        if (accountId > lenght_db)
+            throw new UnknownAccountException();
+
+        for (Account acc : collection) {
+            if (acc.getId() == accountId) {
+                amount = acc.getAmount() + amount;
+                acc.setAmount(amount);
+            }
+
+        }
+
+    }
+
+    public void transfer(int accountId, int to, double amount) throws UnknownAccountException, NotEnoughMoneyException {
+        if (accountId > lenght_db)
+            throw new UnknownAccountException();
+
+        // Снимаем с одного счёта
+        for (Account acc : collection) {
+            if (acc.getId() == accountId) {
+                if (acc.getAmount() < amount) {
+                    throw new NotEnoughMoneyException();
+                }
+                amount = acc.getAmount() - amount;
+                acc.setAmount(amount);
+            }
+
+            // Добавляем на другой
+            for (Account ac : collection) {
+                if (ac.getId() == to) {
+                    amount = ac.getAmount() + amount;
+                    ac.setAmount(amount);
+                }
+
+            }
+
+        }
     }
 }
 
