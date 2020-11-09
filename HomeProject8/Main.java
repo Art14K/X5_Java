@@ -8,9 +8,30 @@ public class Main {
         String input;
         String[] Input = new String[5]; // Массив для преобразования строки
         int lenght_db; // Содержит длину массива
+        String[] config = new String[20]; // Массив содержит данные конфигурационного файла
+        Connection connection; // Подключение к базе данных
 
 
+        // Создаём массив с данными конфигурационного файла
+        CreateConf createConf = new CreateConf();
+        createConf.createConfig();
+        config = createConf.getConfig();
+        String status = config[1];
 
+
+        if (status.indexOf("sql") == -1) {
+            System.out.println("Добро пожаловать!");
+            System.out.println("Программа работает в файловом режиме");
+        } else {
+            try {
+                ConnectionDBSQL connectionDBSQL = new ConnectionDBSQL(config);
+                connection = connectionDBSQL.getConnection();
+            } catch (SQLException exc) {
+                exc.getMessage();
+            }
+            System.out.println("Добро пожаловать!");
+            System.out.println("Программа работает в режиме взаимодействия с sql - сервером");
+        }
 
 
         CreateDb createDb = new CreateDb("base.txt");
