@@ -9,7 +9,7 @@ public class UserOperation implements AccountService {
     private int from;
     private int to;
     private int lenght_db; // Хранит размер базы данных
-    double temp_amount; // Служит для временного хранения значения amount в методе transfer
+    private double temp_amount; // Служит для временного хранения значения amount в методе transfer
     private UnknownAccountException unknownAccountException;
     private NotEnoughMoneyException notEnoughMoneyException;
 

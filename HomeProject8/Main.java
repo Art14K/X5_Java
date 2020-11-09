@@ -10,13 +10,14 @@ public class Main {
         int lenght_db; // Содержит длину массива
         String[] config = new String[20]; // Массив содержит данные конфигурационного файла
         Connection connection; // Подключение к базе данных
+        String status; // Переменная определяет режим работы программы (файловая база данных или sql
 
 
         // Создаём массив с данными конфигурационного файла
         CreateConf createConf = new CreateConf();
         createConf.createConfig();
         config = createConf.getConfig();
-        String status = config[1];
+        status = config[1];
 
 
         if (status.indexOf("sql") == -1) {
@@ -24,8 +25,10 @@ public class Main {
             System.out.println("Программа работает в файловом режиме");
         } else {
             try {
-                ConnectionDBSQL connectionDBSQL = new ConnectionDBSQL(config);
-                connection = connectionDBSQL.getConnection();
+                ConnectionDbSQL connectionDbSQL = new ConnectionDbSQL(config);
+                connection = connectionDbSQL.getConnection();
+                CreateDbSQL createDbSQL = new CreateDbSQL(config, connection);
+                createDbSQL.test();
             } catch (SQLException exc) {
                 exc.getMessage();
             }
@@ -34,10 +37,10 @@ public class Main {
         }
 
 
-        CreateDb createDb = new CreateDb("base.txt");
+        CreateDb createDb = new CreateDb(config[3]);
         createDb.createDb();
         lenght_db = createDb.lenghtDb();
-        String[] base = new String[lenght_db];
+        String[] base = new String[lenght_db]; // Массив для хранения данных из файловой БД
         base = createDb.readDb(lenght_db);
 
 
@@ -52,7 +55,7 @@ public class Main {
         UserOperation userOperation = new UserOperation(listBase, createDb, lenght_db); // Создаём класс для выполнения пользовательских операций
         while (Input[0] != "exit") {
             try {
-                System.out.print("Введите команду(для выхода из программы введите exit: ");
+                System.out.print("Введите команду (для выхода из программы введите exit): ");
                 input = scan.nextLine();
                 Input = input.split(" ");
                 switch (Input[0]) {
