@@ -81,15 +81,25 @@ public class Main {
                         break;
 
                     case "withdraw":
-                        try {
-                            Input[2] = Input[2].replaceAll(",", ".");
-                            userOperation.withdraw(Integer.parseInt(Input[1]), Double.parseDouble(Input[2]));
-                        } catch (UnknownAccountException exc) {
-                            System.out.println("Такого аккаунта не существует!");
-                        } catch (NotEnoughMoneyException exc) {
-                            System.out.println("На указанном счёте не достаточно средств");
+                        if (config[1].indexOf("sql") == -1) {
+                            try {
+                                Input[2] = Input[2].replaceAll(",", ".");
+                                userOperation.withdraw(Integer.parseInt(Input[1]), Double.parseDouble(Input[2]));
+                            } catch (UnknownAccountException exc) {
+                                System.out.println("Такого аккаунта не существует!");
+                            } catch (NotEnoughMoneyException exc) {
+                                System.out.println("На указанном счёте не достаточно средств");
+                            }
+                        } else {
+                            try {
+                                ConnectionDbSQL connectionDbSQL = new ConnectionDbSQL(config);
+                                connection = connectionDbSQL.getConnection();
+                                UserOperationDbSQL operationDbSQL = new UserOperationDbSQL(connection);
+                                operationDbSQL.withdraw(Input[1], Double.parseDouble(Input[2]));
+                            } catch (SQLException exc) {
+                                System.out.println(exc.getMessage());
+                            }
                         }
-
                         break;
 
 
@@ -100,6 +110,7 @@ public class Main {
                         } catch (UnknownAccountException exc) {
                             System.out.println("Такого аккаунта не существует!");
                         }
+                        break;
 
 
                     case "transfer":

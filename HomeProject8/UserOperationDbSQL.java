@@ -45,15 +45,20 @@ public void balance(String accountId) throws SQLException {
     }
 
 public void withdraw(String accountId, double amount) throws SQLException {
-    sql_query = "SELECT * FROM base WHERE id=" + accountId;
+    sql_query = "SELECT * FROM base WHERE id = " + accountId;
     try {statement = connection.createStatement();
         try {
             result = statement.executeQuery(sql_query);
-            amounts[0] = result.getDouble("amount");
-            amounts[0] = amounts[0] - amount;
-            sql_query = "UPDATE base SET amount = "+ amounts[0] + " WHERE id = " + accountId + ";";
-            statement.executeUpdate(sql_query);
-            System.out.println("Операция выполнена");
+            if (result.next()) {
+                amounts[0] = result.getDouble("amount");
+                amounts[0] = amounts[0] - amount;
+                sql_query = "UPDATE base SET amount = '" + amounts[0] + "' WHERE id = '" + accountId + "';";
+                statement.executeUpdate(sql_query);
+                System.out.println("Операция выполнена"); }
+            else {
+                System.out.println("Строка не найдена!");
+            }
+
         } catch (SQLException exc) {
             System.out.println("Не удалось выполнить запрос к базе данных: " + exc.getMessage());
         } finally {
@@ -62,5 +67,9 @@ public void withdraw(String accountId, double amount) throws SQLException {
     }  finally {
         if (statement != null) statement.close();
     }
+}
+
+public void deposit(String accountId, double amount) throws SQLException {
+
 }
 }
