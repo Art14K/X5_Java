@@ -65,15 +65,17 @@ public class Main {
 
                     case "balance":
                         if (config[1].indexOf("sql") == -1) {
-                        try {
-                            userOperation.balance(Integer.parseInt(Input[1]));
-                        } catch (UnknownAccountException exc) {
-                            System.out.println("Такого аккаунта не существует!");
-                        } } else {
-                            try {ConnectionDbSQL connectionDbSQL = new ConnectionDbSQL(config);
-                            connection = connectionDbSQL.getConnection();
-                            UserOperationDbSQL operationDbSQL = new UserOperationDbSQL(connection);
-                            operationDbSQL.balance(Input[1]);
+                            try {
+                                userOperation.balance(Integer.parseInt(Input[1]));
+                            } catch (UnknownAccountException exc) {
+                                System.out.println("Такого аккаунта не существует!");
+                            }
+                        } else {
+                            try {
+                                ConnectionDbSQL connectionDbSQL = new ConnectionDbSQL(config);
+                                connection = connectionDbSQL.getConnection();
+                                UserOperationDbSQL operationDbSQL = new UserOperationDbSQL(connection);
+                                operationDbSQL.balance(Input[1]);
                             } catch (SQLException exc) {
                                 System.out.println(exc.getMessage());
                             }
@@ -92,36 +94,74 @@ public class Main {
                             }
                         } else {
                             try {
+                                Input[2] = Input[2].replaceAll(",", ".");
                                 ConnectionDbSQL connectionDbSQL = new ConnectionDbSQL(config);
                                 connection = connectionDbSQL.getConnection();
                                 UserOperationDbSQL operationDbSQL = new UserOperationDbSQL(connection);
                                 operationDbSQL.withdraw(Input[1], Double.parseDouble(Input[2]));
                             } catch (SQLException exc) {
                                 System.out.println(exc.getMessage());
+                            } catch (NotEnoughMoneyException exc) {
+                                System.out.println("На указанном счёте не достаточно средств");
+                            } catch (UnknownAccountException exc) {
+                                System.out.println("Аккаунта с указанный id не существует!");
                             }
                         }
                         break;
 
 
                     case "deposit":
-                        try {
-                            Input[2] = Input[2].replaceAll(",", ".");
-                            userOperation.deposit(Integer.parseInt(Input[1]), Double.parseDouble(Input[2]));
-                        } catch (UnknownAccountException exc) {
-                            System.out.println("Такого аккаунта не существует!");
+                        if (config[1].indexOf("sql") == -1) {
+                            try {
+                                Input[2] = Input[2].replaceAll(",", ".");
+                                userOperation.deposit(Integer.parseInt(Input[1]), Double.parseDouble(Input[2]));
+                            } catch (UnknownAccountException exc) {
+                                System.out.println("Такого аккаунта не существует!");
+                            }
+                        } else {
+                            try {
+                                Input[2] = Input[2].replaceAll(",", ".");
+                                ConnectionDbSQL connectionDbSQL = new ConnectionDbSQL(config);
+                                connection = connectionDbSQL.getConnection();
+                                UserOperationDbSQL operationDbSQL = new UserOperationDbSQL(connection);
+                                operationDbSQL.deposit(Input[1], Double.parseDouble(Input[2]));
+                            } catch (SQLException exc) {
+                                System.out.println(exc.getMessage());
+                            } catch (UnknownAccountException exc) {
+                                System.out.println("Аккаунта с указанный id не существует!");
+                            }
                         }
                         break;
 
 
                     case "transfer":
-                        try {
-                            Input[3] = Input[3].replaceAll(",", ".");
-                            userOperation.transfer(Integer.parseInt(Input[1]), Integer.parseInt(Input[2]), Double.parseDouble(Input[3]));
-                        } catch (UnknownAccountException exc) {
-                            System.out.println("На указанном счёте не достаточно средств");
-                        } catch (NotEnoughMoneyException exc) {
-                            System.out.println("На указанном счёте не достаточно средств");
+                        if (config[1].indexOf("sql") == -1) {
+                            try {
+                                Input[3] = Input[3].replaceAll(",", ".");
+                                userOperation.transfer(Integer.parseInt(Input[1]), Integer.parseInt(Input[2]), Double.parseDouble(Input[3]));
+                            } catch (UnknownAccountException exc) {
+                                System.out.println("На указанном счёте не достаточно средств");
+                            } catch (NotEnoughMoneyException exc) {
+                                System.out.println("На указанном счёте не достаточно средств");
+                            }
+                        } else {
+                            try {
+                                Input[3] = Input[3].replaceAll(",", ".");
+                                ConnectionDbSQL connectionDbSQL = new ConnectionDbSQL(config);
+                                connection = connectionDbSQL.getConnection();
+                                UserOperationDbSQL operationDbSQL = new UserOperationDbSQL(connection);
+                                operationDbSQL.transfer(Input[1], Input[2], Double.parseDouble(Input[3]));
+
+                            } catch (SQLException exc) {
+                                System.out.println(exc.getMessage());
+                            } catch (UnknownAccountException exc) {
+                                System.out.println("Аккаунта с указанный id не существует!");
+                            } catch (NotEnoughMoneyException exc) {
+                                System.out.println("На указанном счёте не достаточно средств");
+                            }
                         }
+                        break;
+
 
                     default:
                         break;
