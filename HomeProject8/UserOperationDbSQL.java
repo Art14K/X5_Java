@@ -108,24 +108,26 @@ public void transfer(String accountId, String to, double amount) throws SQLExcep
             result = statement.executeQuery(sql_query);
             if (result.next()) {
                 amounts[0] = result.getDouble("amount");
-                amounts[3] = amounts[0];
+                amounts[2] = amounts[0];
                 if (amounts[0] < amount) {
                     throw new NotEnoughMoneyException();
                 }
                 amounts[0] = amounts[0] - amount;
                 sql_query = "UPDATE base SET amount = '" + amounts[0] + "' WHERE id = '" + accountId + "';";
                 statement.executeUpdate(sql_query);
-                /*sql_query = "SELECT * FROM base WHERE id = " + to;
+                sql_query = "SELECT * FROM base WHERE id = " + to;
                 result = statement.executeQuery(sql_query);
                 if (result.next()) {
-                    sql_query = "UPDATE base SET amount = '" + amount + "' WHERE id = '" + to +"';";
+                    amounts[1] = result.getDouble("amount");
+                    amounts[1] = amounts[1] + amount;
+                    sql_query = "UPDATE base SET amount = '" + amounts[1] + "' WHERE id = '" + to +"';";
                     statement.executeUpdate(sql_query);
                 } else {
                     System.out.println("Возвращаю счёт отправителя в исходное состояние...");
-                    sql_query = "UPDATE base SET amount = '" + amounts[3] +"' WHERE id = '" + accountId + "';";
+                    sql_query = "UPDATE base SET amount = '" + amounts[2] +"' WHERE id = '" + accountId + "';";
                     statement.executeUpdate(sql_query);
                     throw new UnknownAccountException();
-                } */
+                }
                 System.out.println("Операция выполнена");
             } else {
                 throw new UnknownAccountException();
