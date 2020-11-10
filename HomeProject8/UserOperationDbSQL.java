@@ -100,9 +100,9 @@ public class UserOperationDbSQL {
         }
     }
 
-public void transfer(String accountId, String to, double amount) throws SQLException, UnknownAccountException, NotEnoughMoneyException {
-    sql_query = "SELECT * FROM base WHERE id = " + accountId;
-    try {
+  public void transfer(String accountId, String to, double amount) throws SQLException, UnknownAccountException, NotEnoughMoneyException {
+        sql_query = "SELECT * FROM base WHERE id = " + accountId;
+        try {
         statement = connection.createStatement();
         try {
             result = statement.executeQuery(sql_query);
