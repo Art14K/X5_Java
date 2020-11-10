@@ -10,25 +10,24 @@ public class Main {
         int lenght_db; // Содержит длину массива
         String[] config = new String[20]; // Массив содержит данные конфигурационного файла
         Connection connection; // Подключение к базе данных
-        String status; // Переменная определяет режим работы программы (файловая база данных или sql
+        Statement statement;
 
 
         // Создаём массив с данными конфигурационного файла
         CreateConf createConf = new CreateConf();
         createConf.createConfig();
         config = createConf.getConfig();
-        status = config[1];
 
-
-        if (status.indexOf("sql") == -1) {
+        if (config[1].indexOf("sql") == -1) {
             System.out.println("Добро пожаловать!");
             System.out.println("Программа работает в файловом режиме");
         } else {
             try {
                 ConnectionDbSQL connectionDbSQL = new ConnectionDbSQL(config);
                 connection = connectionDbSQL.getConnection();
-                CreateDbSQL createDbSQL = new CreateDbSQL(config, connection);
-                createDbSQL.test();
+                CreateDbSQL createDbSQL = new CreateDbSQL(connection);
+                createDbSQL.create();
+
             } catch (SQLException exc) {
                 exc.getMessage();
             }
@@ -65,10 +64,19 @@ public class Main {
                         break;
 
                     case "balance":
+                        if (config[1].indexOf("sql") == -1) {
                         try {
                             userOperation.balance(Integer.parseInt(Input[1]));
                         } catch (UnknownAccountException exc) {
                             System.out.println("Такого аккаунта не существует!");
+                        } } else {
+                            try {ConnectionDbSQL connectionDbSQL = new ConnectionDbSQL(config);
+                            connection = connectionDbSQL.getConnection();
+                            UserOperationDbSQL operationDbSQL = new UserOperationDbSQL(connection);
+                            operationDbSQL.balance(Input[1]);
+                            } catch (SQLException exc) {
+                                System.out.println(exc.getMessage());
+                            }
                         }
                         break;
 
