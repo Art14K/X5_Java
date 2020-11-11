@@ -26,7 +26,7 @@ public class UserOperation implements AccountService {
             throw new UnknownAccountException();
         for (Account acc : collection) {
             if (acc.getId() == accountId) {
-               acc.printinfo();
+                acc.printinfo();
             }
         }
     }
@@ -74,15 +74,15 @@ public class UserOperation implements AccountService {
         }
 
 
-            // Добавляем на другой
+        // Добавляем на другой
         for (Account ac : collection) {
-                if (ac.getId() == to) {
-                    amount = ac.getAmount() + temp_amount;
-                    ac.setAmount(amount);
-                }
+            if (ac.getId() == to) {
+                amount = ac.getAmount() + temp_amount;
+                ac.setAmount(amount);
             }
         }
     }
+}
 
 
 

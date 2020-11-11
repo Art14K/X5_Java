@@ -52,17 +52,12 @@ public class Main {
 
 
         UserOperation userOperation = new UserOperation(listBase, createDb, lenght_db); // Создаём класс для выполнения пользовательских операций
-        while (Input[0] != "exit") {
+        do {
             try {
                 System.out.print("Введите команду (для выхода из программы введите exit): ");
                 input = scan.nextLine();
                 Input = input.split(" ");
                 switch (Input[0]) {
-                    case "exit":
-                        Input[0] = "exit";
-                    case "test":
-                        break;
-
                     case "balance":
                         if (config[1].indexOf("sql") == -1) {
                             try {
@@ -171,7 +166,7 @@ public class Main {
             } catch (NumberFormatException exc) {
                 System.out.println("Ошибка синтаксиса!");
             }
-        }
+        } while (!Input[0].equals("exit"));
         createDb.updateDb(listBase);
     }
 }

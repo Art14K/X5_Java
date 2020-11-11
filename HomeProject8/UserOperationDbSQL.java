@@ -100,46 +100,46 @@ public class UserOperationDbSQL {
         }
     }
 
-  public void transfer(String accountId, String to, double amount) throws SQLException, UnknownAccountException, NotEnoughMoneyException {
+    public void transfer(String accountId, String to, double amount) throws SQLException, UnknownAccountException, NotEnoughMoneyException {
         sql_query = "SELECT * FROM base WHERE id = " + accountId;
         try {
-        statement = connection.createStatement();
-        try {
-            result = statement.executeQuery(sql_query);
-            if (result.next()) {
-                amounts[0] = result.getDouble("amount");
-                amounts[2] = amounts[0];
-                if (amounts[0] < amount) {
-                    throw new NotEnoughMoneyException();
-                }
-                amounts[0] = amounts[0] - amount;
-                sql_query = "UPDATE base SET amount = '" + amounts[0] + "' WHERE id = '" + accountId + "';";
-                statement.executeUpdate(sql_query);
-                sql_query = "SELECT * FROM base WHERE id = " + to;
+            statement = connection.createStatement();
+            try {
                 result = statement.executeQuery(sql_query);
                 if (result.next()) {
-                    amounts[1] = result.getDouble("amount");
-                    amounts[1] = amounts[1] + amount;
-                    sql_query = "UPDATE base SET amount = '" + amounts[1] + "' WHERE id = '" + to +"';";
+                    amounts[0] = result.getDouble("amount");
+                    amounts[2] = amounts[0];
+                    if (amounts[0] < amount) {
+                        throw new NotEnoughMoneyException();
+                    }
+                    amounts[0] = amounts[0] - amount;
+                    sql_query = "UPDATE base SET amount = '" + amounts[0] + "' WHERE id = '" + accountId + "';";
                     statement.executeUpdate(sql_query);
+                    sql_query = "SELECT * FROM base WHERE id = " + to;
+                    result = statement.executeQuery(sql_query);
+                    if (result.next()) {
+                        amounts[1] = result.getDouble("amount");
+                        amounts[1] = amounts[1] + amount;
+                        sql_query = "UPDATE base SET amount = '" + amounts[1] + "' WHERE id = '" + to + "';";
+                        statement.executeUpdate(sql_query);
+                    } else {
+                        System.out.println("Возвращаю счёт отправителя в исходное состояние...");
+                        sql_query = "UPDATE base SET amount = '" + amounts[2] + "' WHERE id = '" + accountId + "';";
+                        statement.executeUpdate(sql_query);
+                        throw new UnknownAccountException();
+                    }
+                    System.out.println("Операция выполнена");
                 } else {
-                    System.out.println("Возвращаю счёт отправителя в исходное состояние...");
-                    sql_query = "UPDATE base SET amount = '" + amounts[2] +"' WHERE id = '" + accountId + "';";
-                    statement.executeUpdate(sql_query);
                     throw new UnknownAccountException();
                 }
-                System.out.println("Операция выполнена");
-            } else {
-                throw new UnknownAccountException();
+            } catch (SQLException exc) {
+                System.out.println("Не удалось выполнить запрос к базе данных: " + exc.getMessage());
+            } finally {
+                if (result != null) result.close();
             }
-        } catch (SQLException exc) {
-            System.out.println("Не удалось выполнить запрос к базе данных: " + exc.getMessage());
         } finally {
-            if (result != null) result.close();
+            if (statement != null) statement.close();
         }
-        } finally {
-        if (statement != null) statement.close();
-    }
     }
 }
 
