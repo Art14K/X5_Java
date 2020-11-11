@@ -43,6 +43,7 @@ public class UserOperation implements AccountService {
                 acc.setAmount(amount);
             }
         }
+        System.out.println("Операция выполнена");
     }
 
     public void deposit(int accountId, double amount) throws UnknownAccountException {
@@ -54,6 +55,7 @@ public class UserOperation implements AccountService {
                 acc.setAmount(amount);
             }
         }
+        System.out.println("Операция выполнена");
     }
 
     public void transfer(int accountId, int to, double amount) throws UnknownAccountException, NotEnoughMoneyException {
@@ -81,6 +83,7 @@ public class UserOperation implements AccountService {
                 ac.setAmount(amount);
             }
         }
+        System.out.println("Операция выполнена");
     }
 }
 
