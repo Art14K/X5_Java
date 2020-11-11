@@ -59,7 +59,7 @@ public class Main {
                 Input = input.split(" ");
                 switch (Input[0]) {
                     case "exit":
-                        Input[0] = "exit"; // при выходе из программы "кидает" исключение ArrayIndexOutOfBoundsException. Не смог разобраться почему
+                        Input[0] = "exit";
                     case "test":
                         break;
 
