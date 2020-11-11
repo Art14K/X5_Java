@@ -13,12 +13,13 @@ public class Main {
         Statement statement;
 
 
+
         // Создаём массив с данными конфигурационного файла
         CreateConf createConf = new CreateConf();
         createConf.createConfig();
         config = createConf.getConfig();
 
-        if (config[1].indexOf("sql") == -1) {
+        if (!config[1].equals("sql")) {
             System.out.println("Добро пожаловать!");
             System.out.println("Программа работает в файловом режиме");
         } else {
@@ -59,7 +60,7 @@ public class Main {
                 Input = input.split(" ");
                 switch (Input[0]) {
                     case "balance":
-                        if (config[1].indexOf("sql") == -1) {
+                        if (!config[1].equals("sql")) {
                             try {
                                 userOperation.balance(Integer.parseInt(Input[1]));
                             } catch (UnknownAccountException exc) {
@@ -78,7 +79,7 @@ public class Main {
                         break;
 
                     case "withdraw":
-                        if (config[1].indexOf("sql") == -1) {
+                        if (!config[1].equals("sql")) {
                             try {
                                 Input[2] = Input[2].replaceAll(",", ".");
                                 userOperation.withdraw(Integer.parseInt(Input[1]), Double.parseDouble(Input[2]));
@@ -106,7 +107,7 @@ public class Main {
 
 
                     case "deposit":
-                        if (config[1].indexOf("sql") == -1) {
+                        if (!config[1].equals("sql")) {
                             try {
                                 Input[2] = Input[2].replaceAll(",", ".");
                                 userOperation.deposit(Integer.parseInt(Input[1]), Double.parseDouble(Input[2]));
@@ -130,7 +131,7 @@ public class Main {
 
 
                     case "transfer":
-                        if (config[1].indexOf("sql") == -1) {
+                        if (!config[1].equals("sql")) {
                             try {
                                 Input[3] = Input[3].replaceAll(",", ".");
                                 userOperation.transfer(Integer.parseInt(Input[1]), Integer.parseInt(Input[2]), Double.parseDouble(Input[3]));
