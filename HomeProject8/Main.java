@@ -167,6 +167,9 @@ public class Main {
                         break;
                 }
             } catch (ArrayIndexOutOfBoundsException exc) {
+                System.out.println("Ошибка получения значения одной из переменных!");
+            } catch (NumberFormatException exc) {
+                System.out.println("Ошибка синтаксиса!");
             }
         }
         createDb.updateDb(listBase);
