@@ -2,8 +2,8 @@ import java.util.*;
 import java.io.*;
 
 public class UserOperation implements AccountService {
-    private CreateDb createDb;
-    private List<Account> collection;
+    private final AccountFileDataBaseManager createDb;
+    private final List<Account> collection;
     private int accountId;
     private double amount;
     private int from;
@@ -14,7 +14,7 @@ public class UserOperation implements AccountService {
     private NotEnoughMoneyException notEnoughMoneyException;
 
 
-    UserOperation(List<Account> collection, CreateDb createDb, int lenght_db) {
+    UserOperation(List<Account> collection, AccountFileDataBaseManager createDb, int lenght_db) {
         this.collection = collection;
         this.createDb = createDb;
         this.lenght_db = lenght_db;
@@ -43,6 +43,7 @@ public class UserOperation implements AccountService {
                 acc.setAmount(amount);
             }
         }
+        createDb.updateDb(collection);
         System.out.println("Операция выполнена");
     }
 
@@ -55,6 +56,7 @@ public class UserOperation implements AccountService {
                 acc.setAmount(amount);
             }
         }
+        createDb.updateDb(collection);
         System.out.println("Операция выполнена");
     }
 
@@ -83,6 +85,7 @@ public class UserOperation implements AccountService {
                 ac.setAmount(amount);
             }
         }
+        createDb.updateDb(collection);
         System.out.println("Операция выполнена");
     }
 }

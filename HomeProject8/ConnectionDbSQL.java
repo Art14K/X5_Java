@@ -3,7 +3,7 @@ import java.sql.*;
 public class ConnectionDbSQL {
 
     private static ConnectionDbSQL instance;
-    private Connection connection;
+    private static Connection connection;
     private String url;
     private String login;
     private String password;

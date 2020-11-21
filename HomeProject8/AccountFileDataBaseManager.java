@@ -1,22 +1,25 @@
 import java.util.*;
 import java.io.*;
 
-public class CreateDb {
+public class AccountFileDataBaseManager {
 
     private String way_file; // путь к файлу
     private int i = 0;
     private String input; // Сообщения для записи в файл
     private List<Account> collection;
+    private File base;
     String[] db_creator = new String[11];
 
 
-    CreateDb(String way_file) {
+
+    AccountFileDataBaseManager(String way_file) {
         this.way_file = way_file;
     }
 
     // метод проверяет ниличие файла и создаёт его в случае отсутствия
     public void createDb() {
-        File base = new File(way_file);
+        try {
+            File base = new File(way_file);
         if (base.exists() == false) {
             System.out.println("Файл базы данных отсутствует!\nСоздаю файл....");
             try (FileWriter fileWriter = new FileWriter(way_file, true)) {
@@ -33,11 +36,18 @@ public class CreateDb {
                 for (int i = 0; i < 10; i++) {
                     fileWriter.write(db_creator[i]);
                 }
-            } catch (IOException ex) {
-                System.out.println(ex.getMessage());
+
+
+            } catch (IOException exc) {
+                System.out.println(exc.getMessage());
             }
+            }
+        } catch (Exception exc) {
+            System.out.println(exc.getMessage());
         }
-    }
+        }
+
+
 
 
     // Метод возвращает размер массива для базы данных

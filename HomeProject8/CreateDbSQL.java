@@ -2,7 +2,7 @@ import java.util.*;
 import java.sql.*;
 
 public class CreateDbSQL {
-    private Connection connection;
+    private final Connection connection;
     private String sql_query;
     private ResultSet result;
     private Statement statement;
@@ -59,6 +59,7 @@ public class CreateDbSQL {
                     sql_query = "INSERT INTO base VALUES (10, 'Денис Алексеев', 42100);";
                     statement.executeUpdate(sql_query);
                     System.out.println("Создана новая база данных.");
+                    System.out.println("Нажмите Enter");
 
                 } catch (SQLException exc) {
                     System.out.println("Не удалось создать таблицу : " + exc.getMessage());
